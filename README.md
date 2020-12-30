@@ -12,3 +12,4 @@
   - rename <projectname> to "src"
   - cd src
   - py manage.py startapp <appname>
+  - py manage.py runserver
