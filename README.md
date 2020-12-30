@@ -18,6 +18,7 @@
 - py manage.py runserver
 
 ## Migration
+### (if a new model is created or existing model is updated)
 
 - py manage.py makemigrations
 - py manage.py migrate
@@ -35,8 +36,26 @@
     - s1 = Student.objects.get(first_name="Omer")
   - Filter Data (return queryset)
     - s1 = Student.objects.filter(first_name="Omer")
-    - s2 = Student.objects.filter(first_name__startswith="t")
+    - s2 = Student.objects.filter(first_name\_\_startswith="t")
   - Exclude Data (return queryset)
     - s1 = Student.objects.exclude(first_name="Omer")
-    - s2 = Student.objects.exclude(first_name__endswith="r")
-   
+    - s2 = Student.objects.exclude(first_name\_\_endswith="r")
+
+## Django Template Language (DTL) - Template
+
+- Variables
+  - Simple Variables: {{ title }}
+  - Object Attributes: {{ page.title }}
+  - Dictionary Lookups: {{ dict.key }}
+  - List Indexes: {{ list_items.0 }}
+- Tags
+  - Display Logic: {% if %}...{% endif %}
+  - Loop Control: {% for x in y %}...{% endfor %}
+  - Block Declaration: {% block content %}...{% endblock %}
+  - Content Import: {% include "header.html" %}
+  - Inheritance: {% extends "base.html" %}
+- Filters
+  - Change Case: {{ name|title }}
+  - Truncation: {{ post_content|truncatewords:50 }}
+  - Date Formatting: {{ order_date|date:"D M Y" }}
+  - List Slicing: {{ list_items|slice:":3" }}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <h1>Home Page</h1>
+    {{title|upper}} <br />
+    {{title|upper|safe}} <br />
+    {{title|safe|add:" is the best." }} <br />
+    {{dict_1}} <br />
+    {% for i in my_list %} 
+        {% if i == 3 %}
+            <p>This number is 3</p>
+        {% else %}
+            <p> {{ i }} </p>
+        {% endif %}
+    {% endfor %}
+  </body>
+</html>
