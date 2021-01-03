@@ -1,0 +1,12 @@
+{% extends "first_app/base.html" %}
+
+{% block content %}
+  <h1>Student Detail</h1>
+  Number: {{ student.number }} <br>
+  First Name: {{ student.first_name }} <br>
+  Last Name: {{ student.last_name }} <br>
+  <a href="{% url 'Delete Student' student.id %}">
+    <button>Delete</button>
+  </a>
+
+{% endblock content %}
