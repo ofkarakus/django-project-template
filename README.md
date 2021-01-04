@@ -16,7 +16,7 @@
 - py manage.py migrate
 - py manage.py createsuperuser
 - py manage.py runserver
-
+- (if you clone another project from github) => pip install -r .\requirements.txt
 ## Migration
 ### (if a new model is created or existing model is updated)
 

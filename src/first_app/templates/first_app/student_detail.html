@@ -2,11 +2,14 @@
 
 {% block content %}
   <h1>Student Detail</h1>
-  Number: {{ student.number }} <br>
-  First Name: {{ student.first_name }} <br>
-  Last Name: {{ student.last_name }} <br>
+  First Name: {{ student.first_name }} <br><br>
+  Last Name: {{ student.last_name }} <br><br>
+  Number: {{ student.number }} <br><br>
   <a href="{% url 'Delete Student' student.id %}">
     <button>Delete</button>
+  </a>
+  <a href="{% url 'Update Student' student.id %}">
+    <button>Update</button>
   </a>
 
 {% endblock content %}

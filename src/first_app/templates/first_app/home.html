@@ -18,5 +18,12 @@
             <p> {{ i }} </p>
         {% endif %}
     {% endfor %}
+
+    <a href="{% url 'Add Student' %}">
+      <button>Add Student</button>
+    </a>
+    <a href="{% url 'List Page' %}">
+      <button>Student List</button>
+    </a>
   </body>
 </html>

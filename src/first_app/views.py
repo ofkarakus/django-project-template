@@ -61,7 +61,8 @@ def add_student(request):
 
 
 def get_student_details(request, id):
-    student = Student.objects.get(id=id)
+    # student = Student.objects.get(id=id)
+    student = get_object_or_404(Student, id=id)
     context = {
         'student': student
     }
@@ -74,3 +75,24 @@ def delete_student(request, id):
         student.delete()
         return redirect('List Page')
     return render(request, 'first_app/delete_student.html')
+
+
+def update_student(request, id):
+    student = get_object_or_404(Student, id=id)
+    form = StudentForm(instance=student)
+    context = {
+        'student': student,
+        'form': form
+    }
+    # context['form'].fields['first_name'].initial = student.first_name
+    # context['form'].fields['last_name'].initial = student.last_name
+    # context['form'].fields['number'].initial = student.number
+    
+    if request.method == 'POST':
+        # student.delete()
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect("List Page")
+
+    return render(request, 'first_app/update_student.html', context)

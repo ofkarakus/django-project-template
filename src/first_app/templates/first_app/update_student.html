@@ -1,0 +1,17 @@
+{% extends "first_app/base.html" %}
+
+{% block title %}
+  Update Student
+{% endblock title %}
+
+{% block content %}
+  <h2>Update Student</h2>
+  <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save">
+      <a href="{% url 'List Page' %}">
+        <button>Cancel</button>
+      </a>
+  </form>
+{% endblock content %}
