@@ -9,7 +9,7 @@
 - pip install django
 - pip freeze (check if django is installed)
 - pip freeze > requirements.txt
-- django-admin startproject <projectname>
+- django-admin startproject "projectname"
 - rename "projectname" to "src"
 - cd src
 - py manage.py startapp "appname"
