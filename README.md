@@ -4,15 +4,15 @@
 
 - new folder => django-project || git clone
 - cd django-project
-- py -m venv <venvname> (best practice)
+- py -m venv "venvname" (best practice)
 - .\project-env\Scripts\activate
 - pip install django
 - pip freeze (check if django is installed)
 - pip freeze > requirements.txt
 - django-admin startproject <projectname>
-- rename <projectname> to "src"
+- rename "projectname" to "src"
 - cd src
-- py manage.py startapp <appname>
+- py manage.py startapp "appname"
 - py manage.py migrate
 - py manage.py createsuperuser
 - py manage.py runserver
