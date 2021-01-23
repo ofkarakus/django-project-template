@@ -89,3 +89,34 @@ def student_delete_api(request):
             'message': f'Student {student_obj.first_name} deleted successfully.'
         }
         return JsonResponse(data, status=201)
+
+
+@csrf_exempt
+def student_update_api(request):
+    if request.method == 'POST':
+        post_body = json.loads(request.body)  # convert json to dict
+
+        student_id = post_body.get('id')
+        name = post_body.get('first_name')
+        surname = post_body.get('last_name')
+        number = post_body.get('number')
+
+        student_data = {
+            'first_name': name,
+            'last_name': surname,
+            'number': number
+        }
+
+        student_obj = Student.objects.filter(id=student_id)
+
+        data = {'success': {
+            'message': f'Student updated successfully.'
+        }, 'error': {
+            'message': f'Student couldn\'t find.'
+        }}
+
+        if student_obj.exists():
+            student_obj.update(**student_data)
+
+            return JsonResponse(data['success'], status=200)
+        return JsonResponse(data['error'], status=200)
