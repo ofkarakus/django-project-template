@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from first_app.models import Student
 from django.core.serializers import serialize
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
@@ -49,3 +51,29 @@ def student_list_api_2(request):
             'student_count': student_count
         }
         return JsonResponse(data)
+
+
+@csrf_exempt
+def student_create_api(request):
+    if request.method == 'POST':
+        post_body = json.loads(request.body)  # convert json to dict
+
+        print(post_body)
+        print(type(post_body))
+
+        name = post_body.get('first_name')
+        surname = post_body.get('last_name')
+        number = post_body.get('number')
+
+        student_data = {
+            'first_name': name,
+            'last_name': surname,
+            'number': number
+        }
+
+        student_obj = Student.objects.create(**student_data)
+        data = {
+            'message': f'Student {student_obj.first_name} created successfully.'
+        }
+        return JsonResponse(data, status=201)
+
