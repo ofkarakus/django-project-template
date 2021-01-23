@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 from first_app.models import Student
 from django.core.serializers import serialize
@@ -77,3 +77,15 @@ def student_create_api(request):
         }
         return JsonResponse(data, status=201)
 
+
+@csrf_exempt
+def student_delete_api(request):
+    if request.method == 'POST':
+        post_body = json.loads(request.body)  # convert json to dict
+        student_id = post_body.get('id')
+        student_obj = get_object_or_404(Student, id=student_id)
+        student_obj.delete()
+        data = {
+            'message': f'Student {student_obj.first_name} deleted successfully.'
+        }
+        return JsonResponse(data, status=201)
