@@ -4,6 +4,10 @@ from first_app.models import Student
 from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 import json
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import StudentSerializer
+from rest_framework import status
 
 # Create your views here.
 
@@ -70,6 +74,8 @@ def student_create_api(request):
             'last_name': surname,
             'number': number
         }
+        
+        # VALIDATION SHOULD BE ADDED FOR POST DATA
 
         student_obj = Student.objects.create(**student_data)
         data = {
@@ -106,6 +112,8 @@ def student_update_api(request):
             'last_name': surname,
             'number': number
         }
+        
+        # VALIDATION SHOULD BE ADDED FOR POST DATA
 
         student_obj = Student.objects.filter(id=student_id)
 
@@ -120,3 +128,20 @@ def student_update_api(request):
 
             return JsonResponse(data['success'], status=200)
         return JsonResponse(data['error'], status=200)
+
+@api_view(["GET", "POST"])
+def student_list_create_api(request):
+    if request.method == "GET":
+        student_list = Student.objects.all()
+        serializer = StudentSerializer(student_list, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == "POST":
+        serializer = StudentSerializer(data=request.data)  # convert json to dict
+        if serializer.is_valid():
+            serializer.save()
+            message = {
+                'success': 'Student created successfully!'
+            }
+            return Response(message, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

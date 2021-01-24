@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     
     # my_apps
     'first_app.apps.FirstAppConfig',
-    'django_rest_app.apps.DjangoRestAppConfig'
+    'django_rest_app.apps.DjangoRestAppConfig',
+    
+    # third_party
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
