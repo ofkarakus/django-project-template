@@ -145,7 +145,18 @@ def student_list_create_api(request):
         serializer = StudentSerializer(
             data=request.data)  # convert json to dict
         if serializer.is_valid():
-            serializer.save()
+            
+            # If user (teacher) authentication exists in the project;
+            # serializer.save(teacher=request.user)
+            # Before saving to DB you can assign and send every kind of data by this method.
+            
+            # This code block is equal to ==>
+            # student = form.save(commit=False)
+            # student.teacher = request.user
+            # student.save()
+            
+            # There is not user authentication in the project, so that;
+            serializer.save()  # this code block is enough for now.
             message = {
                 'success': 'Student created successfully!'
             }
