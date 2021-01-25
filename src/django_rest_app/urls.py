@@ -8,5 +8,7 @@ urlpatterns = [
     path('student-create/', views.student_create_api),
     path('student-delete/', views.student_delete_api),
     path('student-update/', views.student_update_api),
-    path('student-list-create-api/', views.student_list_create_api),
+    path('student-list-create/', views.student_list_create_api),
+    path('student_details_update_delete/<int:id>/',
+         views.student_details_update_delete_api),
 ]

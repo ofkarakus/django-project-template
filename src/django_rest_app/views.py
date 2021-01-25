@@ -74,7 +74,7 @@ def student_create_api(request):
             'last_name': surname,
             'number': number
         }
-        
+
         # VALIDATION SHOULD BE ADDED FOR POST DATA
 
         student_obj = Student.objects.create(**student_data)
@@ -112,7 +112,7 @@ def student_update_api(request):
             'last_name': surname,
             'number': number
         }
-        
+
         # VALIDATION SHOULD BE ADDED FOR POST DATA
 
         student_obj = Student.objects.filter(id=student_id)
@@ -129,15 +129,21 @@ def student_update_api(request):
             return JsonResponse(data['success'], status=200)
         return JsonResponse(data['error'], status=200)
 
+
 @api_view(["GET", "POST"])
 def student_list_create_api(request):
+
+    # DISPLAY STUDENT LIST
     if request.method == "GET":
         student_list = Student.objects.all()
-        serializer = StudentSerializer(student_list, many=True)
+        serializer = StudentSerializer(
+            student_list, many=True)  # convert dict to json
         return Response(serializer.data)
-    
+
+    # CREATE NEW STUDENT
     elif request.method == "POST":
-        serializer = StudentSerializer(data=request.data)  # convert json to dict
+        serializer = StudentSerializer(
+            data=request.data)  # convert json to dict
         if serializer.is_valid():
             serializer.save()
             message = {
@@ -145,3 +151,33 @@ def student_list_create_api(request):
             }
             return Response(message, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "PUT", "DELETE"])
+def student_details_update_delete_api(request, id):
+    student = get_object_or_404(Student, id=id)
+    print(student)
+    print(type(student))
+    messages = {'success': {
+        'update': 'Student updated succesfully!',
+        'delete': 'Student deleted succesfully!'
+    }}
+
+    # DISPLAY STUDENT DETAILS
+    if request.method == "GET":
+        serializer = StudentSerializer(student)  # convert dict to json
+        return Response(serializer.data)
+
+    # UPDATE STUDENT DETAILS
+    if request.method == "PUT":
+        serializer = StudentSerializer(
+            student, data=request.data)  # convert json to dict
+        if serializer.is_valid():
+            serializer.save()
+            return Response(messages['success']['update'], status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE STUDENT
+    if request.method == "DELETE":
+        student.delete()
+        return Response(messages['success']['delete'], status=status.HTTP_200_OK)
