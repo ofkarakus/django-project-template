@@ -22,4 +22,9 @@ urlpatterns = [
     path('student-list-create-gn/', views.StudentListCreateGn.as_view()),
     path('student-details-update-delete-gn/<int:id>/',
          views.StudentDetailsUpdateDeleteGn.as_view(), name="GetUpdateDelete"),
+
+    # class-based-mixin
+    path('student-list-create-mixin/', views.StudentListCreateMixin.as_view()),
+    path('student-details-update-delete-mixin/<int:id>/',
+         views.StudentDetailsUpdateDeleteMixin.as_view())
 ]
