@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # function-based
     path('home/', views.home_api),
     path('student-list-1/', views.student_list_api_1),
     path('student-list-2/', views.student_list_api_2),
@@ -11,7 +12,14 @@ urlpatterns = [
     path('student-list-create/', views.student_list_create_api),
     path('student-details-update-delete/<int:id>/',
          views.student_details_update_delete_api),
+
+    # class-based
     path('student-list-create-cls/', views.StudentListCreate.as_view()),
-    path('student_details_update_delete-cls/<int:id>/',
+    path('student-details-update-delete-cls/<int:id>/',
          views.StudentDetailsUpdateDelete.as_view()),
+
+    # class-based-generic
+    path('student-list-create-gn/', views.StudentListCreateGn.as_view()),
+    path('student-details-update-delete-gn/<int:id>/',
+         views.StudentDetailsUpdateDeleteGn.as_view(), name="GetUpdateDelete"),
 ]

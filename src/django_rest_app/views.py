@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 from .serializers import StudentSerializer
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import generics
 
 # Create your views here.
 
@@ -249,3 +250,16 @@ class StudentDetailsUpdateDelete(APIView):
         student = get_object_or_404(Student, id=id)
         student.delete()
         return Response(self.messages['success']['delete'], status=status.HTTP_204_NO_CONTENT)
+
+
+# === CLASS BASED - GENERIC VIEWS ===
+
+class StudentListCreateGn(generics.ListCreateAPIView):
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+
+
+class StudentDetailsUpdateDeleteGn(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+    lookup_field = "id"
